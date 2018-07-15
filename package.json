@@ -3,15 +3,33 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/core": "7.0.0-beta.46",
+    "@babel/runtime": "7.0.0-beta.46",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^22.4.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-react-app": "^3.1.1",
+    "browserslist": "2.11.3",
+    "chalk": "2.3.0",
+    "eslint": "4.15.0",
+    "express": "^4.16.3",
+    "find-pkg": "1.0.0",
+    "fs-extra": "5.0.0",
+    "globby": "^8.0.1",
+    "graphql": "0.12.3",
+    "graphql-tag": "^2.9.2",
+    "inquirer": "5.0.0",
+    "jest": "22.4.1",
+    "parcel-bundler": "^1.8.1",
+    "pkg-up": "2.0.0",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "react-scripts-parcel": "0.0.24"
+    "react-dev-utils": "^5.0.0",
+    "react-dom": "^16.4.1"
   },
   "scripts": {
-    "start": "react-scripts-parcel start",
-    "build": "react-scripts-parcel build",
-    "test": "react-scripts-parcel test --env=jsdom",
-    "eject": "react-scripts-parcel eject"
+    "start": "node scripts/start.js",
+    "build": "node scripts/build.js",
+    "test": "node scripts/test.js --env=jsdom"
   },
   "browserslist": {
     "development": [
@@ -24,6 +42,46 @@
       "last 4 versions",
       "Firefox ESR",
       "not ie < 11"
+    ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,mjs}"
+    ],
+    "setupFiles": [
+      "<rootDir>/config/polyfills.js"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.{js,jsx,mjs}",
+      "**/?(*.)(spec|test).{js,jsx,mjs}"
+    ],
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "testEnvironment": "node",
+    "testURL": "http://localhost",
+    "transform": {
+      "^.+\\.(js|jsx|mjs)$": "<rootDir>/config/jest/babelTransform.js",
+      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+      "^.+\\.(graphql)$": "<rootDir>/config/jest/graphqlTransform.js",
+      "^(?!.*\\.(js|jsx|mjs|css|json|graphql)$)": "<rootDir>/config/jest/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$",
+      "^.+\\.module\\.css$"
+    ],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web",
+      "^.+\\.module\\.css$": "identity-obj-proxy"
+    },
+    "moduleFileExtensions": [
+      "web.js",
+      "mjs",
+      "js",
+      "json",
+      "web.jsx",
+      "jsx",
+      "node"
     ]
   }
 }
