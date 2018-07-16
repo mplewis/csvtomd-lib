@@ -1,88 +1,82 @@
-'use strict';
+'use strict'
 
 // Do this as the first thing so that any code reading it knows the right env.
-process.env.BABEL_ENV = 'production';
-process.env.NODE_ENV = 'production';
+process.env.BABEL_ENV = 'production'
+process.env.NODE_ENV = 'production'
 
 // Makes the script crash on unhandled rejections instead of silently
 // ignoring them. In the future, promise rejections that are not handled will
 // terminate the Node.js process with a non-zero exit code.
-process.on('unhandledRejection', err => {
-  throw err;
-});
+process.on('unhandledRejection', err => { throw err })
 
 // Ensure environment variables are read.
-require('../config/env');
+require('../config/env')
 
-
-const path = require('path');
-const chalk = require('chalk');
-const fs = require('fs-extra');
+const path = require('path')
+const chalk = require('chalk')
+const fs = require('fs-extra')
 // const webpack = require('webpack'); // CRAP: swyx: removed webpack
-// const config = require('../config/webpack.config.prod'); // CRAP: swyx: removed webpack
-const config = require('../config/parcel.config.prod');
+// const config = require('../config/webpack.config.prod'); // CRAP: swyx:
+// removed webpack
+const config = require('../config/parcel.config.prod')
 // CRAP: swyx: https://parceljs.org/api.html
-const Bundler = require('parcel-bundler');
-const Path = path;
+const Bundler = require('parcel-bundler')
+const Path = path
 // end CRAP: swyx: https://parceljs.org/api.html
-const paths = require('../config/paths');
-const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
-const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
-const printHostingInstructions = require('react-dev-utils/printHostingInstructions');
-const FileSizeReporter = require('react-dev-utils/FileSizeReporter');
-const printBuildError = require('react-dev-utils/printBuildError');
-const { printBrowsers } = require('./react-dev-utils/browsersHelper');
+const paths = require('../config/paths')
+const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles')
+const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages')
+const printHostingInstructions =
+    require('react-dev-utils/printHostingInstructions')
+const FileSizeReporter = require('react-dev-utils/FileSizeReporter')
+const printBuildError = require('react-dev-utils/printBuildError')
+const {printBrowsers} = require('./react-dev-utils/browsersHelper')
 // const { printBrowsers } = require('react-dev-utils/browsersHelper');
 
-const measureFileSizesBeforeBuild =
-  FileSizeReporter.measureFileSizesBeforeBuild;
-const printFileSizesAfterBuild = FileSizeReporter.printFileSizesAfterBuild;
+const measureFileSizesBeforeBuild = FileSizeReporter.measureFileSizesBeforeBuild
+const printFileSizesAfterBuild = FileSizeReporter.printFileSizesAfterBuild
 
 // These sizes are pretty large. We'll warn for bundles exceeding them.
-const WARN_AFTER_BUNDLE_GZIP_SIZE = 512 * 1024;
-const WARN_AFTER_CHUNK_GZIP_SIZE = 1024 * 1024;
+const WARN_AFTER_BUNDLE_GZIP_SIZE = 512 * 1024
+const WARN_AFTER_CHUNK_GZIP_SIZE = 1024 * 1024
 
 // Warn and crash if required files are missing
 if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
-  process.exit(1);
+  process.exit(1)
 }
 
 // We require that you explictly set browsers and do not fall back to
 // browserslist defaults.
 // const { checkBrowsers } = require('react-dev-utils/browsersHelper');
-const { checkBrowsers } = require('./react-dev-utils/browsersHelper');
+const {checkBrowsers} = require('./react-dev-utils/browsersHelper')
 checkBrowsers(paths.appPath)
   .then(() => {
     // First, read the current file sizes in build directory.
     // This lets us display how much they changed later.
-    return measureFileSizesBeforeBuild(paths.appBuild);
+    return measureFileSizesBeforeBuild(paths.appBuild)
   })
   .then(previousFileSizes => {
     // Remove all content but keep the directory so that
     // if you're in it, you don't end up in Trash
-    fs.emptyDirSync(paths.appBuild);
+    fs.emptyDirSync(paths.appBuild)
     // Merge with the public folder
-    copyPublicFolder();
+    copyPublicFolder()
     // Start the webpack build
-    return build(previousFileSizes);
+    return build(previousFileSizes)
   })
   .then(
     ({ stats, previousFileSizes, warnings }) => {
       if (warnings.length) {
-        console.log(chalk.yellow('Compiled with warnings.\n'));
-        console.log(warnings.join('\n\n'));
+        console.log(chalk.yellow('Compiled with warnings.\n'))
+        console.log(warnings.join('\n\n'))
         console.log(
-          '\nSearch for the ' +
-            chalk.underline(chalk.yellow('keywords')) +
-            ' to learn more about each warning.'
-        );
+          '\nSearch for the ' + chalk.underline(chalk.yellow('keywords')) +
+        ' to learn more about each warning.')
         console.log(
-          'To ignore, add ' +
-            chalk.cyan('// eslint-disable-next-line') +
-            ' to the line before.\n'
-        );
+          'To ignore, add ' + chalk.cyan('// eslint-disable-next-line') +
+        ' to the line before.\n')
       } else {
-        console.log(chalk.green('Compiled successfully.\n'));
+        console.log(chalk.green('Compiled successfully.\n'))
       }
 
       // CRAP: swyx: disable for now until we can figure out how to do stats
@@ -94,33 +88,28 @@ checkBrowsers(paths.appPath)
       //   WARN_AFTER_BUNDLE_GZIP_SIZE,
       //   WARN_AFTER_CHUNK_GZIP_SIZE
       // );
-      console.log();
+      console.log()
 
-      const appPackage = require(paths.appPackageJson);
-      const publicUrl = paths.publicUrl;
-      const publicPath = config.output.publicPath;
-      const buildFolder = path.relative(process.cwd(), paths.appBuild);
+      const appPackage = require(paths.appPackageJson)
+      const publicUrl = paths.publicUrl
+      const publicPath = config.output.publicPath
+      const buildFolder = path.relative(process.cwd(), paths.appBuild)
       printHostingInstructions(
-        appPackage,
-        publicUrl,
-        publicPath,
-        buildFolder,
-        paths.useYarn
-      );
-      printBrowsers(paths.appPath);
+        appPackage, publicUrl, publicPath, buildFolder, paths.useYarn)
+      printBrowsers(paths.appPath)
     },
     err => {
-      console.log(chalk.red('Failed to compile.\n'));
-      printBuildError(err);
-      process.exit(1);
+      console.log(chalk.red('Failed to compile.\n'))
+      printBuildError(err)
+      process.exit(1)
     }
   )
   .catch(err => {
     if (err && err.message) {
-      console.log(err.message);
+      console.log(err.message)
     }
-    process.exit(1);
-  });
+    process.exit(1)
+  })
 
 // // webpack version for reference
 // // Create the production build and print the deployment instructions.
@@ -144,12 +133,15 @@ checkBrowsers(paths.appPath)
 //       }
 //       if (
 //         process.env.CI &&
-//         (typeof process.env.CI !== 'string' || process.env.CI.toLowerCase() !== 'false') &&
-//         messages.warnings.length
+//         (typeof process.env.CI !== 'string' ||
+//         process.env.CI.toLowerCase()
+//         !== 'false') && messages.warnings.length
 //       ) {
 //         console.log(
 //           chalk.yellow(
-//             '\nTreating warnings as errors because process.env.CI = true.\n' + 'Most CI servers set it automatically.\n'
+//             '\nTreating warnings as errors because process.env.CI =
+//             true.\n'
+//             + 'Most CI servers set it automatically.\n'
 //           )
 //         );
 //         return reject(new Error(messages.warnings.join('\n\n')));
@@ -165,29 +157,27 @@ checkBrowsers(paths.appPath)
 
 // parcel version
 // Create the production build and print the deployment instructions.
-function build(previousFileSizes) {
-  console.log('Creating an optimized production build...');
+function build (previousFileSizes) {
+  console.log('Creating an optimized production build...')
 
-  const file = paths.appHtml; // Pass an absolute path to the entrypoint here
-  let bundler = new Bundler(file, config);
+  const file =
+            paths.appHtml // Pass an absolute path to the entrypoint here
+  let bundler = new Bundler(file, config)
   return bundler
     .bundle()
     .then(bundle => {
       return {
-        stats: 'some stats',
-        previousFileSizes,
-        warnings: [],
-      };
+        stats: 'some stats', previousFileSizes, warnings: []
+      }
     })
     .catch(err => {
-      console.error('errror in the build: ', err);
-      return new Error('build failed!');
-    });
+      console.error('errror in the build: ', err)
+      return new Error('build failed!')
+    })
 }
 
-function copyPublicFolder() {
-  fs.copySync(paths.appPublic, paths.appBuild, {
-    dereference: true,
-    filter: file => file !== paths.appHtml,
-  });
+function copyPublicFolder () {
+  fs.copySync(
+    paths.appPublic, paths.appBuild,
+    {dereference: true, filter: file => file !== paths.appHtml})
 }
