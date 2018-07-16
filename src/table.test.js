@@ -1,4 +1,6 @@
-import {colWidths, dividerRow, rowToMd, wrap} from './table'
+import hd from 'heredocument'
+
+import {colWidths, dividerRow, rowToMd, tableToMd, wrap} from './table'
 
 describe('wrap', () => {
   test('wraps strings', () => {
@@ -28,5 +30,22 @@ describe('dividerRow', () => {
   test('creates the correct header divider row', () => {
     const expected = '| --- | ----- | -- |'
     expect(dividerRow('|', '-', [3, 5, 2])).toEqual(expected)
+  })
+})
+
+describe('tableToMd', () => {
+  test('creates the correct table', () => {
+    const table = [
+      ['Name', 'Position', 'Wanted'],
+      ['Darrow au Andromedus', 'Leader', 'Yes'],
+      ['Victoria au Augustus', 'Accomplice', 'Yes']
+    ]
+    const expected = hd`
+      | Name                 | Position   | Wanted |
+      | -------------------- | ---------- | ------ |
+      | Darrow au Andromedus | Leader     | Yes    |
+      | Victoria au Augustus | Accomplice | Yes    |
+    `.trim()
+    expect(tableToMd('|', '-', table)).toEqual(expected)
   })
 })

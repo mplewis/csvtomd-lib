@@ -1,4 +1,4 @@
-import {curry, join, length, map, max, pipe, reduce, repeat, transpose, zip} from 'ramda'
+import {curry, head, join, length, map, max, pipe, reduce, repeat, tail, transpose, unnest, zip} from 'ramda'
 
 const maxIn = reduce(max, -Infinity)
 const lengthOfLongest = pipe(map(length), maxIn)
@@ -25,4 +25,12 @@ export const dividerRow = curry((vertDiv, horizDiv, widths) => {
   const repeated = curry(pipe(repeat, join('')))
   const horizDivCells = map(repeated(horizDiv), widths)
   return rowToMd(vertDiv, widths, horizDivCells)
+})
+
+export const tableToMd = curry((vertDiv, horizDiv, table) => {
+  const widths = colWidths(table)
+  const divider = dividerRow(vertDiv, horizDiv, widths)
+  const rows = table.map(rowToMd(vertDiv, widths))
+  const assembled = unnest([[head(rows)], [divider], tail(rows)])
+  return join('\n', assembled)
 })
