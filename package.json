@@ -2,7 +2,8 @@
   "name": "csvtomd-lib",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "@babel/core": "7.0.0-beta.46",
     "@babel/runtime": "7.0.0-beta.46",
     "babel-core": "^6.26.3",
@@ -16,18 +17,15 @@
     "find-pkg": "1.0.0",
     "fs-extra": "5.0.0",
     "globby": "^8.0.1",
-    "graphql": "0.12.3",
-    "graphql-tag": "^2.9.2",
     "inquirer": "5.0.0",
     "jest": "22.4.1",
     "parcel-bundler": "^1.8.1",
     "pkg-up": "2.0.0",
-    "react": "^16.4.1",
-    "react-dev-utils": "^5.0.0",
-    "react-dom": "^16.4.1"
+    "raf": "^3.4.0",
+    "react-dev-utils": "^5.0.1",
+    "whatwg-fetch": "^2.0.4"
   },
   "scripts": {
-    "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
@@ -63,8 +61,7 @@
     "transform": {
       "^.+\\.(js|jsx|mjs)$": "<rootDir>/config/jest/babelTransform.js",
       "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-      "^.+\\.(graphql)$": "<rootDir>/config/jest/graphqlTransform.js",
-      "^(?!.*\\.(js|jsx|mjs|css|json|graphql)$)": "<rootDir>/config/jest/fileTransform.js"
+      "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
     },
     "transformIgnorePatterns": [
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$",

@@ -3,7 +3,8 @@
 const autoprefixer = require('autoprefixer');
 const path = require('path');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
-// const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
+// const getCSSModuleLocalIdent =
+// require('react-dev-utils/getCSSModuleLocalIdent');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
 
@@ -13,7 +14,8 @@ const publicPath = paths.servedPath;
 // Some apps do not use client-side routing with pushState.
 // For these, "homepage" can be set to "." to enable relative asset paths.
 const shouldUseRelativeAssetPaths = publicPath === './';
-// Source maps are resource heavy and can cause out of memory issue for large source files.
+// Source maps are resource heavy and can cause out of memory issue for large
+// source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 // `publicUrl` is just like `publicPath`, but we will provide it to our app
 // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
@@ -43,25 +45,30 @@ const sassModuleRegex = /\.module\.(scss|sass)$/;
 module.exports = {
   // The build folder.
   outDir: paths.appBuild || './dist',
-  outFile: 'index.html', // The name of the outputFile
+  outFile: 'index.js',  // The name of the outputFile
   // We inferred the "public path" (such as / or /my-project) from homepage.
   publicUrl: publicPath,
   watch: false,
   cache: false,
-  cacheDir: '.cache', // The directory cache gets put in, defaults to .cache
+  cacheDir: '.cache',  // The directory cache gets put in, defaults to .cache
   minify: true,
-  minify: false, // Minify files, enabled if process.env.NODE_ENV === 'production'
-  target: 'browser', // browser/node/electron, defaults to browser
-  https: false, // Server files over https or http, defaults to false
-  logLevel: 3, // 3 = log everything, 2 = log warnings & errors, 1 = log errors
-  hmrPort: 0, // The port the hmr socket runs on, defaults to a random free port (0 in node.js resolves to a random free port)
+  minify:
+      false,  // Minify files, enabled if process.env.NODE_ENV === 'production'
+  target: 'browser',  // browser/node/electron, defaults to browser
+  https: false,       // Server files over https or http, defaults to false
+  logLevel: 3,  // 3 = log everything, 2 = log warnings & errors, 1 = log errors
+  hmrPort: 0,   // The port the hmr socket runs on, defaults to a random free
+                // port (0 in node.js resolves to a random free port)
   // We generate sourcemaps in production. This is slow but gives good results.
   // You can exclude the *.map files from the build during deployment.
   sourceMaps: shouldUseSourceMap,
-  hmrHostname: '', // A hostname for hot module reload, default to ''
-  detailedReport: true, // Prints a detailed report of the bundles, assets, filesizes and times, defaults to false, reports are only printed if watch is disabled
+  hmrHostname: '',       // A hostname for hot module reload, default to ''
+  detailedReport: true,  // Prints a detailed report of the bundles, assets,
+                         // filesizes and times, defaults to false, reports are
+                         // only printed if watch is disabled
   output: {
-    // parcel doesnt need this at all but this shims CRA's webpack.config.prod.js
+    // parcel doesnt need this at all but this shims CRA's
+    // webpack.config.prod.js
     publicPath: publicPath,
   },
 };
