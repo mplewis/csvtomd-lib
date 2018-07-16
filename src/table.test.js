@@ -1,4 +1,4 @@
-import {colWidths, rowToMd, wrap} from './table'
+import {colWidths, dividerRow, rowToMd, wrap} from './table'
 
 describe('wrap', () => {
   test('wraps strings', () => {
@@ -21,5 +21,12 @@ describe('rowToMd', () => {
     const cells = ['Darrow', 'Red', 'Mars']
     const expected = '| Darrow   | Red | Mars    |'
     expect(rowToMd('|', widths, cells)).toEqual(expected)
+  })
+})
+
+describe('dividerRow', () => {
+  test('creates the correct header divider row', () => {
+    const expected = '| --- | ----- | -- |'
+    expect(dividerRow('|', '-', [3, 5, 2])).toEqual(expected)
   })
 })
