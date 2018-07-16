@@ -17,13 +17,13 @@ export const rowToMd = curry((vertDiv, widths, cells) => {
     wrap(vertDiv, 1)
   )
   const paddedCells =
-    map(([width, cell]) => cell.padEnd(width), zip(widths, cells))
+    zip(widths, cells).map(([width, cell]) => cell.padEnd(width))
   return makeRow(paddedCells)
 })
 
 export const dividerRow = curry((vertDiv, horizDiv, widths) => {
   const repeated = curry(pipe(repeat, join('')))
-  const horizDivCells = map(repeated(horizDiv), widths)
+  const horizDivCells = widths.map(repeated(horizDiv))
   return rowToMd(vertDiv, widths, horizDivCells)
 })
 
