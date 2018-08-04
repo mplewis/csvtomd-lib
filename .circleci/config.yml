@@ -1,0 +1,33 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/memefax
+    docker:
+      - image: mhart/alpine-node@sha256:74ccf977e92c92a17392d0615409f83ef035855805b9d3b63978d3fef4ff5696
+    steps:
+      - checkout
+      - run:
+          # https://circleci.com/docs/2.0/custom-images/#adding-required-and-custom-tools-or-files
+          name: Install CircleCI dependencies
+          command: apk add --no-cache ca-certificates
+      - run:
+          name: Install Yarn
+          command: npm install -g yarn
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install project dependencies
+          command: yarn install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Run unit tests
+          command: yarn test --coverage
+      - store_artifacts:
+          path: junit
+      - store_artifacts:
+          path: coverage
+      - store_test_results:
+          path: junit
