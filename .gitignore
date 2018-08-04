@@ -5,6 +5,7 @@
 
 # testing
 /coverage
+/junit
 
 # production - note this is different from webpack
 /dist
