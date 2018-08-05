@@ -1,6 +1,7 @@
 {
   "name": "csvtomd-lib",
   "version": "0.1.0",
+  "description": "Generate Markdown tables from CSV data",
   "main": "./build/index.js",
   "esnext": "./src/index.js",
   "module": "./src/index.js",
