@@ -33,6 +33,8 @@ const printBuildError = require('react-dev-utils/printBuildError')
 const {printBrowsers} = require('./react-dev-utils/browsersHelper')
 // const { printBrowsers } = require('react-dev-utils/browsersHelper');
 
+const ENTRY_POINT = paths.appIndexJs
+
 const measureFileSizesBeforeBuild = FileSizeReporter.measureFileSizesBeforeBuild
 const printFileSizesAfterBuild = FileSizeReporter.printFileSizesAfterBuild
 
@@ -160,8 +162,7 @@ checkBrowsers(paths.appPath)
 function build (previousFileSizes) {
   console.log('Creating an optimized production build...')
 
-  const file =
-            paths.appHtml // Pass an absolute path to the entrypoint here
+  const file = ENTRY_POINT // Pass an absolute path to the entrypoint here
   let bundler = new Bundler(file, config)
   return bundler
     .bundle()
