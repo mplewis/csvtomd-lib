@@ -44,8 +44,9 @@
   },
   "scripts": {
     "build": "node scripts/build.js",
+    "clean": "rm -r build",
     "test": "node scripts/test.js --env=jsdom",
-    "prepublishOnly": "PREPUBLISH=1 yarn test && yarn build"
+    "prepublishOnly": "PREPUBLISH=1 yarn test && yarn clean && yarn build"
   },
   "browserslist": {
     "development": [
