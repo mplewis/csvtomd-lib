@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.1.0] - 2018-08-06
 
+### Changed
+
+* Version bump to fix npm publishing issue
+
+## [0.1.0] - 2018-08-06
+
 ### Added
 
 * Initial release
