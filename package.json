@@ -2,6 +2,8 @@
   "name": "csvtomd-lib",
   "version": "0.1.0",
   "description": "Generate Markdown tables from CSV data",
+  "author": "Matt Lewis <matt@mplewis.com> (https://mplewis.com)",
+  "license": "MIT",
   "main": "./build/index.js",
   "esnext": "./src/index.js",
   "module": "./src/index.js",
@@ -56,5 +58,9 @@
       "Firefox ESR",
       "not ie < 11"
     ]
-  }
+  },
+  "files": [
+    "src",
+    "build"
+  ]
 }

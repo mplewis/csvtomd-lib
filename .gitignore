@@ -12,6 +12,9 @@
 /.cache
 /build
 
+# packaging
+csvtomd-*.tgz
+
 # misc
 .DS_Store
 .env.local
