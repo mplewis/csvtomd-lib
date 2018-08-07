@@ -44,7 +44,8 @@
   },
   "scripts": {
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "prepublishOnly": "PREPUBLISH=1 yarn test && yarn build"
   },
   "browserslist": {
     "development": [
