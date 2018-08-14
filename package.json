@@ -14,6 +14,7 @@
   "devDependencies": {
     "@babel/core": "7.0.0-beta.46",
     "@babel/runtime": "7.0.0-beta.46",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-jest": "^22.4.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -43,7 +44,7 @@
     "whatwg-fetch": "^2.0.4"
   },
   "scripts": {
-    "build": "node scripts/build.js",
+    "build": "yarn babel src --out-dir build --ignore '**/*.test.js'",
     "clean": "rm -r build",
     "test": "node scripts/test.js --env=jsdom",
     "prepublishOnly": "PREPUBLISH=1 yarn test && yarn clean && yarn build"
