@@ -7,6 +7,7 @@ export default function parse (text) {
   let chars = Array.from(text)
   let pos = 0
 
+  let inLineComment = false
   let inQuote = false
 
   function outOfChars () {
@@ -30,13 +31,32 @@ export default function parse (text) {
     chunk = ''
   }
 
-  function newLine () {
+  function newLine (saveLine = true) {
     newChunk()
-    rows.push(chunks)
+    if (saveLine) rows.push(chunks)
     chunks = []
   }
 
+  function startOfLine () {
+    return chunks.length === 0 && chunk === ''
+  }
+
   while (!outOfChars()) {
+    if (inLineComment) {
+      if (current() === '\n') {
+        inLineComment = false
+        newLine(false)
+      }
+      advance()
+      continue
+    }
+
+    if (startOfLine() && current() === '#') {
+      inLineComment = true
+      advance()
+      continue
+    }
+
     if (inQuote) {
       if (current(2) === '\\"') {
         emit('"')
@@ -70,6 +90,6 @@ export default function parse (text) {
       }
     }
   }
-  newLine()
+  newLine(!inLineComment)
   return rows
 }

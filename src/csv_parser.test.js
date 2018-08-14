@@ -2,18 +2,24 @@ import parse from './csv_parser'
 import parserTestCases from './fixtures/parser_test_cases'
 
 const unsupportedEdgeCases = [
+  // these edge cases are considered errors and are not supported
   'Unquoted field with quotes at end of field',
   'Quoted field with whitespace around quotes',
-  'Misplaced quotes in data, not as opening quotes'
+  'Misplaced quotes in data, not as opening quotes',
+
+  // comments are only supported using # for now
+  'Comment with non-default character',
+  'Multi-character comment string',
+  // comments cannot be disabled right now
+  'Input with only a commented line, without comments enabled'
 ]
 
 function allowedTestCase ({description, expected}) {
-  // comments are not currently supported
-  if (description.match(/\bcomment(s|ed)?\b/i)) return false
-  // these edge cases are considered errors and are not supported
   if (unsupportedEdgeCases.includes(description)) return false
+
   // we do not run failure/error type tests
   if (expected.errors.length > 0) return false
+
   return true
 }
 
