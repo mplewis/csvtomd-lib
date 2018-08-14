@@ -1,6 +1,6 @@
 {
   "name": "csvtomd-lib",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Generate Markdown tables from CSV data",
   "author": "Matt Lewis <matt@mplewis.com> (https://mplewis.com)",
   "license": "MIT",
