@@ -1,5 +1,3 @@
-import hd from 'heredocument'
-
 import parse from './csv_parser'
 import parserTestCases from './fixtures/parser_test_cases'
 
