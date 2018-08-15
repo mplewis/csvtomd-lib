@@ -1,3 +1,5 @@
+import hd from 'heredocument'
+
 import parse from './csv_parser'
 import parserTestCases from './fixtures/parser_test_cases'
 
@@ -28,5 +30,13 @@ const allowedTestCases = parserTestCases.filter(allowedTestCase)
 describe('parse', () => {
   allowedTestCases.forEach(({description, input, expected}) => {
     test(description, () => expect(parse(input)).toEqual(expected.data))
+  })
+
+  describe('backslash-escaped quotes', () => {
+    expect(parse('"quoted \\"foo\\" word",bar')).toEqual([['quoted "foo" word', 'bar']])
+  })
+
+  describe('line end with carriage return', () => {
+    expect(parse('foo,bar\r\nbaz,quux')).toEqual([['foo', 'bar'], ['baz', 'quux']])
   })
 })
