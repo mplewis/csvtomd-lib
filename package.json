@@ -29,7 +29,7 @@
     "eslint-plugin-standard": "^3.1.0",
     "express": "^4.16.3",
     "find-pkg": "1.0.0",
-    "fs-extra": "5.0.0",
+    "fs-extra": "8.0.1",
     "globby": "^8.0.1",
     "heredocument": "^2.0.2",
     "inquirer": "5.0.0",
