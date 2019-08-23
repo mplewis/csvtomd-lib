@@ -32,7 +32,7 @@
     "fs-extra": "5.0.0",
     "globby": "^8.0.1",
     "heredocument": "^2.0.2",
-    "inquirer": "5.0.0",
+    "inquirer": "7.0.0",
     "jest": "22.4.1",
     "jest-junit": "^5.1.0",
     "parcel-bundler": "^1.8.1",
