@@ -1,9 +1,9 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/memefax
+    working_directory: ~/app
     docker:
-      - image: mhart/alpine-node@sha256:74ccf977e92c92a17392d0615409f83ef035855805b9d3b63978d3fef4ff5696
+      - image: node:13-slim
     steps:
       - checkout
       - run:
