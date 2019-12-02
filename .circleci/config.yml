@@ -7,15 +7,6 @@ jobs:
     steps:
       - checkout
       - run:
-          # https://circleci.com/docs/2.0/custom-images/#adding-required-and-custom-tools-or-files
-          name: Install CircleCI dependencies
-          command: apk add --no-cache ca-certificates
-      - run:
-          name: Install Yarn
-          command: npm install -g yarn
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - run:
           name: Install project dependencies
           command: yarn install
       - save_cache:
