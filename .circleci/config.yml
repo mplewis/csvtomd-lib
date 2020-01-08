@@ -3,18 +3,12 @@ jobs:
   build:
     working_directory: ~/app
     docker:
-      - image: node:13-slim
+      - image: node:13-buster
     steps:
       - checkout
       - run:
-          # https://circleci.com/docs/2.0/custom-images/#adding-required-and-custom-tools-or-files
-          name: Install CircleCI dependencies
-          command: apk add --no-cache ca-certificates
-      - run:
-          name: Install Yarn
-          command: npm install -g yarn
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          name: Install deps for deasync
+          command: apt-get update; apt-get install -y python3.6 make build-essential
       - run:
           name: Install project dependencies
           command: yarn install
